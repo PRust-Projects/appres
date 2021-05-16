@@ -28,6 +28,10 @@ impl Resources {
         Ok(Resources::new(executable_dir_path))
     }
 
+    pub fn new_app_relative_to_config(app_name: impl AsRef<str>) -> Result<Self> {
+        Resources::new_dir_relative_to_config(app_name.as_ref())
+    }
+
     pub fn new_dir_relative_to_config(dir: impl AsRef<Path>) -> Result<Self> {
         let mut dir_path = get_config_path()?;
         dir_path.push(dir);
