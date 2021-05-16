@@ -3,6 +3,8 @@ mod error;
 use std::fs::{create_dir_all, read_to_string, write};
 use std::path::{Path, PathBuf};
 
+use dirs::config_dir;
+
 pub use error::AppResError;
 
 pub type Result<T> = std::result::Result<T, AppResError>;
@@ -16,9 +18,20 @@ impl Resources {
         Self { path: path.into() }
     }
 
+    pub fn new_relative_to_config() -> Result<Self> {
+        let config_dir_path = get_config_path()?;
+        Ok(Resources::new(config_dir_path))
+    }
+
     pub fn new_relative_to_executable() -> Result<Self> {
         let executable_dir_path = get_executable_dir_path()?;
         Ok(Resources::new(executable_dir_path))
+    }
+
+    pub fn new_dir_relative_to_config(dir: impl AsRef<Path>) -> Result<Self> {
+        let mut dir_path = get_config_path()?;
+        dir_path.push(dir);
+        Ok(Resources::new(dir_path))
     }
 
     pub fn new_dir_relative_to_executable(dir: impl AsRef<Path>) -> Result<Self> {
@@ -48,4 +61,8 @@ pub fn get_executable_dir_path() -> Result<PathBuf> {
     let mut executable_dir_path = std::env::current_exe()?;
     executable_dir_path.pop();
     Ok(executable_dir_path)
+}
+
+pub fn get_config_path() -> Result<PathBuf> {
+    Option::ok_or(config_dir(), AppResError::ConfigDirNotFound)
 }
