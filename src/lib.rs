@@ -1,4 +1,5 @@
 mod error;
+mod resource_types;
 
 use std::fs::{create_dir_all, read_to_string, write};
 use std::path::{Path, PathBuf};
@@ -6,16 +7,21 @@ use std::path::{Path, PathBuf};
 use dirs::config_dir;
 
 pub use error::AppResError;
+pub use resource_types::toml;
 
 pub type Result<T> = std::result::Result<T, AppResError>;
 
 pub struct Resources {
     path: PathBuf,
+    resources: Vec<String>,
 }
 
 impl Resources {
     pub fn new(path: impl Into<PathBuf>) -> Self {
-        Self { path: path.into() }
+        Self {
+            path: path.into(),
+            resources: vec![],
+        }
     }
 
     pub fn new_relative_to_config() -> Result<Self> {
