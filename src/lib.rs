@@ -7,7 +7,7 @@ use std::path::{Path, PathBuf};
 use dirs::config_dir;
 
 pub use error::AppResError;
-pub use resource_types::{toml, yaml};
+pub use resource_types::{json, toml, yaml};
 
 pub type Result<T> = std::result::Result<T, AppResError>;
 

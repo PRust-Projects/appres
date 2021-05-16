@@ -5,6 +5,8 @@ pub enum AppResError {
     #[error("cannot find config dir")]
     ConfigDirNotFound,
     #[error(transparent)]
+    InvalidJson(#[from] serde_json::Error),
+    #[error(transparent)]
     InvalidTomlDeserialization(#[from] toml::de::Error),
     #[error(transparent)]
     InvalidTomlSerialization(#[from] toml::ser::Error),
