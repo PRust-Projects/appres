@@ -7,12 +7,18 @@ use std::path::{Path, PathBuf};
 use dirs::config_dir;
 
 pub use error::AppResError;
-pub use resource_types::{json, toml, yaml};
+#[cfg(feature = "json_resources")]
+pub use resource_types::json;
+#[cfg(feature = "toml_resources")]
+pub use resource_types::toml;
+#[cfg(feature = "yaml_resources")]
+pub use resource_types::yaml;
 
 pub type Result<T> = std::result::Result<T, AppResError>;
 
 pub struct Resources {
     path: PathBuf,
+    #[cfg(feature = "toml_resources")]
     resources: Vec<String>,
 }
 
@@ -20,6 +26,7 @@ impl Resources {
     pub fn new(path: impl Into<PathBuf>) -> Self {
         Self {
             path: path.into(),
+            #[cfg(feature = "toml_resources")]
             resources: vec![],
         }
     }
