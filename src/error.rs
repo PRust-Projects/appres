@@ -9,6 +9,8 @@ pub enum AppResError {
     #[error(transparent)]
     InvalidTomlSerialization(#[from] toml::ser::Error),
     #[error(transparent)]
+    InvalidYaml(#[from] serde_yaml::Error),
+    #[error(transparent)]
     IOError(#[from] std::io::Error),
     #[error("there is no parent for this directory")]
     NoParent,
