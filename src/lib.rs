@@ -20,6 +20,7 @@ pub type Result<T> = std::result::Result<T, AppResError>;
 /// Represents a directory where an application would store resources such as config
 /// files and other assets.  Makes it easy to load and write resources relative to that
 /// directory.
+#[derive(Clone, Debug)]
 pub struct Resources {
     path: PathBuf,
     #[cfg(feature = "toml_resources")]
