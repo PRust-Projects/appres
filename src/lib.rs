@@ -85,11 +85,10 @@ impl Resources {
     /// Save a file at the path specified relative to the directory that was given when
     /// the resource manager was created.
     pub fn save_to_file(&self, path: impl AsRef<Path>, content: impl AsRef<[u8]>) -> Result<()> {
-        create_dir_all(&self.path)?;
-
         let mut file_path = self.path.clone();
         file_path.push(path);
 
+        create_dir_all(&file_path.parent().ok_or(AppResError::NoParent)?)?;
         Ok(write(file_path, content.as_ref())?)
     }
 }
