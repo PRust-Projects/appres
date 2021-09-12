@@ -91,6 +91,24 @@ impl Resources {
         create_dir_all(&file_path.parent().ok_or(AppResError::NoParent)?)?;
         Ok(write(file_path, content.as_ref())?)
     }
+
+    /// Check to see if the given path is a regular file that exists relative to the directory that
+    /// was given when the resource manager was created.
+    pub fn has_file(&self, path: impl AsRef<Path>) -> bool {
+        let mut file_path = self.path.clone();
+        file_path.push(path);
+
+        file_path.is_file()
+    }
+
+    /// Check to see if the given path is a directory that exists relative to the directory that was
+    /// given when the resource manager was created.
+    pub fn has_dir(&self, path: impl AsRef<Path>) -> bool {
+        let mut file_path = self.path.clone();
+        file_path.push(path);
+
+        file_path.is_dir()
+    }
 }
 
 /// Return either the executable directory or [`AppResError::IOError`].
