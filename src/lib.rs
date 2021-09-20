@@ -109,6 +109,18 @@ impl Resources {
 
         file_path.is_dir()
     }
+
+    /// Return the full base path for the resource manager.
+    pub fn get_path(&self) -> PathBuf {
+        self.path.clone()
+    }
+
+    /// Return the full path for the given relative path.
+    pub fn get_file_path(&self, path: impl AsRef<Path>) -> PathBuf {
+        let mut file_path = self.path.clone();
+        file_path.push(path);
+        file_path
+    }
 }
 
 /// Return either the executable directory or [`AppResError::IOError`].
