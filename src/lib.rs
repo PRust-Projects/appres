@@ -134,3 +134,8 @@ pub fn get_executable_dir_path() -> Result<PathBuf> {
 pub fn get_config_path() -> Result<PathBuf> {
     Option::ok_or(config_dir(), AppResError::ConfigDirNotFound)
 }
+
+/// Read the content of file given its path.
+pub fn read_from(path: impl AsRef<Path>) -> Result<String> {
+    Ok(read_to_string(path)?)
+}
