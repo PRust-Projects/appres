@@ -13,7 +13,7 @@ pub trait TomlResourcesExt {
     fn load_from_toml_file<'de, T>(&'de mut self, toml_file: impl AsRef<Path>) -> Result<T>
     where
         T: serde::Deserialize<'de>;
-    /// Write toml file to a path relative from the resources directory.
+    /// Writes toml file to a path relative from the resources directory.
     fn save_to_toml_file<C: ?Sized>(&self, toml_file: impl AsRef<Path>, thing: &C) -> Result<()>
     where
         C: serde::Serialize;
@@ -59,7 +59,7 @@ impl TomlResourcesExt for Resources {
         Ok(toml::from_str(resource)?)
     }
 
-    /// Write toml file to a path relative from the resources directory.
+    /// Writes toml file to a path relative from the resources directory.
     ///
     /// # Examples
     ///

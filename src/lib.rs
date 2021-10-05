@@ -80,7 +80,7 @@ pub struct Resources {
 }
 
 impl Resources {
-    /// Create a resource manager for the given path.
+    /// Creates a resource manager for the given path.
     ///
     /// # Examples
     ///
@@ -104,7 +104,7 @@ impl Resources {
         }
     }
 
-    /// Create a resource manager for the config directory.  An error may be returned if
+    /// Creates a resource manager for the config directory.  An error may be returned if
     /// the config path cannot be retrieved.
     ///
     /// # Examples
@@ -122,7 +122,7 @@ impl Resources {
         Ok(Resources::new(config_dir_path))
     }
 
-    /// Create a resource manager for the executable directory.  An error may be
+    /// Creates a resource manager for the executable directory.  An error may be
     /// returned if the executable path cannot be retrieved.
     ///
     /// # Examples
@@ -140,7 +140,7 @@ impl Resources {
         Ok(Resources::new(executable_dir_path))
     }
 
-    /// Create a resource manager for the specified app in the config directory.  An
+    /// Creates a resource manager for the specified app in the config directory.  An
     /// error may be returned if the config path cannot be retrieved.
     ///
     /// # Examples
@@ -157,7 +157,7 @@ impl Resources {
         Resources::new_dir_relative_to_config(app_name.as_ref())
     }
 
-    /// Create a resource manager for the specified directory in the config directory.
+    /// Creates a resource manager for the specified directory in the config directory.
     /// An error may be returned if the config path cannot be retrieved.
     ///
     /// # Examples
@@ -176,7 +176,7 @@ impl Resources {
         Ok(Resources::new(dir_path))
     }
 
-    /// Create a resource manager for the specified directory in the executable
+    /// Creates a resource manager for the specified directory in the executable
     /// directory.  An error may be returned if the executable path cannot be retrieved.
     ///
     /// # Examples
@@ -196,7 +196,7 @@ impl Resources {
         Ok(Resources::new(dir_path))
     }
 
-    /// Load a file at the path specified relative to the directory that was given when
+    /// Loads a file at the path specified relative to the directory that was given when
     /// the resource manager was created. Returns a String or an error if the file could
     /// not be accessed for some reason.
     ///
@@ -222,7 +222,7 @@ impl Resources {
         Ok(read_to_string(file_path)?)
     }
 
-    /// Save a file at the path specified relative to the directory that was given when
+    /// Saves a file at the path specified relative to the directory that was given when
     /// the resource manager was created. An error may be returned if the file could not
     /// be written to disk.
     ///
@@ -251,7 +251,7 @@ impl Resources {
         Ok(write(file_path, content.as_ref())?)
     }
 
-    /// Check to see if the given path is a regular file that exists relative to the directory that
+    /// Checks to see if the given path is a regular file that exists relative to the directory that
     /// was given when the resource manager was created.
     ///
     /// # Examples
@@ -272,7 +272,7 @@ impl Resources {
         file_path.is_file()
     }
 
-    /// Check to see if the given path is a directory that exists relative to the directory that was
+    /// Checks to see if the given path is a directory that exists relative to the directory that was
     /// given when the resource manager was created.
     ///
     /// # Examples
@@ -293,7 +293,7 @@ impl Resources {
         file_path.is_dir()
     }
 
-    /// Return the full base path for the resource manager.
+    /// Returns the full base path for the resource manager.
     ///
     /// # Examples
     ///
@@ -312,7 +312,7 @@ impl Resources {
         self.path.clone()
     }
 
-    /// Return the full path for the given relative path.
+    /// Returns the full path for the given relative path.
     ///
     /// # Examples
     ///
@@ -334,14 +334,13 @@ impl Resources {
     }
 }
 
-/// Return either the executable directory or [`AppResError::IOError`].
+/// Returns either the executable directory or [`AppResError::IOError`].
 ///
 /// # Examples
 ///
 /// Basic usage:
 ///
 /// ```no_run
-///
 /// use std::path::PathBuf;
 ///
 /// use appres::get_executable_dir_path;
@@ -356,7 +355,7 @@ pub fn get_executable_dir_path() -> Result<PathBuf> {
     Ok(executable_dir_path)
 }
 
-/// Return either the config directory or [`AppResError::ConfigDirNotFound`].
+/// Returns either the config directory or [`AppResError::ConfigDirNotFound`].
 ///
 /// # Examples
 ///
@@ -436,7 +435,7 @@ pub fn read_from_file(path: impl AsRef<Path>) -> Result<String> {
     Ok(read_to_string(path)?)
 }
 
-/// Write a slice to a file specified by the given path.
+/// Writes a slice to a file specified by the given path.
 ///
 /// # Examples
 ///
@@ -455,7 +454,7 @@ pub fn save_slice_to_file(path: impl AsRef<Path>, content: impl AsRef<[u8]>) -> 
     Ok(write(path, content.as_ref())?)
 }
 
-/// Write a str to a file specified by the given path.
+/// Writes a str to a file specified by the given path.
 ///
 /// # Examples
 ///

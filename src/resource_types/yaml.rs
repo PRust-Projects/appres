@@ -8,7 +8,7 @@ pub trait YamlResourcesExt {
     fn load_from_yaml_file<T>(&self, yaml_file: impl AsRef<Path>) -> Result<T>
     where
         T: serde::de::DeserializeOwned;
-    /// Write yaml file to a path relative from the resources directory.
+    /// Writes yaml file to a path relative from the resources directory.
     fn save_to_yaml_file<C: ?Sized>(&self, yaml_file: impl AsRef<Path>, thing: &C) -> Result<()>
     where
         C: serde::Serialize;
@@ -46,7 +46,7 @@ impl YamlResourcesExt for Resources {
         Ok(serde_yaml::from_str(&file_content)?)
     }
 
-    /// Write yaml file to a path relative from the resources directory.
+    /// Writes yaml file to a path relative from the resources directory.
     ///
     /// # Examples
     ///
