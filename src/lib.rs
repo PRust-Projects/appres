@@ -375,6 +375,51 @@ pub fn get_config_path() -> Result<PathBuf> {
     Option::ok_or(config_dir(), AppResError::ConfigDirNotFound)
 }
 
+/// Expands `path` relative to the path of the executable. Returns either the expanded path or
+/// [`AppResError::IOError`].
+///
+/// # Examples
+///
+/// Basic usage:
+///
+/// ```no_run
+/// use std::path::PathBuf;
+///
+/// use appres::get_file_path_relative_to_executable_path;
+///
+/// // Assume that the executable lies in /home/nobody
+/// let assets_path = get_file_path_relative_to_executable_path("assets").unwrap();
+/// assert_eq!(assets_path, PathBuf::from("/home/nobody/assets"));
+/// ```
+pub fn get_file_path_relative_to_executable_path(path: impl AsRef<Path>) -> Result<PathBuf> {
+    let mut file_path = get_executable_dir_path()?;
+    file_path.push(path);
+    Ok(file_path)
+}
+
+/// Expands `path` relative to the path of the config dir. Returns either the expanded path or
+/// [`AppResError::ConfigDirNotFound`].
+///
+/// # Examples
+///
+/// Basic usage:
+///
+/// ```no_run
+/// use std::path::PathBuf;
+///
+/// use appres::get_file_path_relative_to_config_path;
+///
+/// // Assume that the executable lies in /home/nobody/.config
+/// let projects_path = get_file_path_relative_to_config_path("projectile/projects.yaml")
+///     .unwrap();
+/// assert_eq!(projects_path, PathBuf::from("/home/nobody/.config/projectile/projects.yaml"));
+/// ```
+pub fn get_file_path_relative_to_config_path(path: impl AsRef<Path>) -> Result<PathBuf> {
+    let mut file_path = get_config_path()?;
+    file_path.push(path);
+    Ok(file_path)
+}
+
 /// Read the content of file given its path.
 ///
 /// # Examples
