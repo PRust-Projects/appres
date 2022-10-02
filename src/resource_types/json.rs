@@ -8,11 +8,11 @@ pub trait JsonResourcesExt {
     fn load_from_json_file<T>(&self, json_file: impl AsRef<Path>) -> Result<T>
     where
         T: serde::de::DeserializeOwned;
-    /// Write json file to a path relative from the resources directory.
+    /// Writes json file to a path relative from the resources directory.
     fn save_to_json_file<C: ?Sized>(&self, json_file: impl AsRef<Path>, thing: &C) -> Result<()>
     where
         C: serde::Serialize;
-    /// Write json file to a path relative from the resources directory in a pretty format.
+    /// Writes json file to a path relative from the resources directory in a pretty format.
     fn pretty_save_to_json_file<C: ?Sized>(
         &self,
         json_file: impl AsRef<Path>,
@@ -54,7 +54,7 @@ impl JsonResourcesExt for Resources {
         Ok(serde_json::from_str(&file_content)?)
     }
 
-    /// Write json file to a path relative from the resources directory.
+    /// Writes json file to a path relative from the resources directory.
     ///
     /// # Examples
     ///
@@ -86,7 +86,7 @@ impl JsonResourcesExt for Resources {
         self.save_to_file(json_file, serialized_thing)
     }
 
-    /// Write json file to a path relative from the resources directory in a pretty format.
+    /// Writes json file to a path relative from the resources directory in a pretty format.
     ///
     /// # Examples
     ///
