@@ -7,13 +7,13 @@ edition = "2018"
 
 [dependencies]
 dirs = "3.0"
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-serde_yaml = "0.8"
+serde = { version = "1.0", features = ["derive"], optional = true }
+serde_json = { version = "1.0", optional = true }
+serde_yaml = { version = "0.8", optional = true }
 thiserror = "1.0"
-toml = "0.5"
+toml = { version = "0.5", optional = true }
 
 [features]
-json_resources = []
-toml_resources = []
-yaml_resources = []
+json_resources = ["serde", "serde_json"]
+toml_resources = ["serde", "toml"]
+yaml_resources = ["serde", "serde_yaml"]
