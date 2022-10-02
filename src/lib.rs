@@ -139,3 +139,16 @@ pub fn get_config_path() -> Result<PathBuf> {
 pub fn read_from(path: impl AsRef<Path>) -> Result<String> {
     Ok(read_to_string(path)?)
 }
+
+/// Write a slice to a file specified by the given path.
+pub fn save_slice_to_file(path: impl AsRef<Path>, content: impl AsRef<[u8]>) -> Result<()> {
+    let path = path.as_ref();
+
+    create_dir_all(path.parent().ok_or(AppResError::NoParent)?)?;
+    Ok(write(path, content.as_ref())?)
+}
+
+/// Write a str to a file specified by the given path.
+pub fn save_str_to_file(path: impl AsRef<Path>, content: impl AsRef<str>) -> Result<()> {
+    save_slice_to_file(path, content.as_ref().as_bytes())
+}
