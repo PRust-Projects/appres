@@ -208,3 +208,36 @@ where
     create_dir_all(json_file_dir)?;
     Ok(write(json_file, serialized_thing)?)
 }
+
+/// Serialize an object into json pretty format and write it to a file as specified by the given
+/// path.
+///
+/// # Examples
+///
+/// Basic usage:
+///
+/// ```no_run
+/// use serde::{Deserialize, Serialize};
+///
+/// // Note that you need to enable the json_resources feature in Cargo.toml
+/// use appres::json::pretty_save_to_json_file;
+///
+/// #[derive(Deserialize, Serialize)]
+/// struct Config {
+///     stuff: String,
+/// }
+///
+/// // Write the config to config.json
+/// let config = Config { stuff: String::from("Hello World") };
+/// pretty_save_to_json_file("config.json", &config).unwrap();
+/// ```
+pub fn pretty_save_to_json_file<C: ?Sized>(json_file: impl AsRef<Path>, thing: &C) -> Result<()>
+where
+    C: serde::Serialize,
+{
+    let serialized_thing = serde_json::to_vec_pretty(&thing)?;
+
+    let json_file_dir = json_file.as_ref().parent().ok_or(AppResError::NoParent)?;
+    create_dir_all(json_file_dir)?;
+    Ok(write(json_file, serialized_thing)?)
+}
