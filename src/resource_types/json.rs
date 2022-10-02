@@ -12,6 +12,14 @@ pub trait JsonResourcesExt {
     fn save_to_json_file<C: ?Sized>(&self, json_file: impl AsRef<Path>, thing: &C) -> Result<()>
     where
         C: serde::Serialize;
+    /// Write json file to a path relative from the resources directory in a pretty format.
+    fn pretty_save_to_json_file<C: ?Sized>(
+        &self,
+        json_file: impl AsRef<Path>,
+        thing: &C,
+    ) -> Result<()>
+    where
+        C: serde::Serialize;
 }
 
 impl JsonResourcesExt for Resources {
@@ -30,6 +38,19 @@ impl JsonResourcesExt for Resources {
         C: serde::Serialize,
     {
         let serialized_thing = serde_json::to_vec(&thing)?;
+        self.save_to_file(json_file, serialized_thing)
+    }
+
+    /// Write json file to a path relative from the resources directory in a pretty format.
+    fn pretty_save_to_json_file<C: ?Sized>(
+        &self,
+        json_file: impl AsRef<Path>,
+        thing: &C,
+    ) -> Result<()>
+    where
+        C: serde::Serialize,
+    {
+        let serialized_thing = serde_json::to_vec_pretty(&thing)?;
         self.save_to_file(json_file, serialized_thing)
     }
 }
